@@ -4,6 +4,23 @@ module.exports.renderRegister = (req,res)=>{
     res.render('users/register')
 }
 
+module.exports.renderRegPage = (req,res) =>{
+    const {typeOfUser} = req.body;
+    if(typeOfUser == "ngo"){
+        res.redirect("/registerOrg")
+    }else{
+        res.redirect("/registerUser")
+    }
+}
+
+module.exports.renderOrgRegister = (req,res)=>{
+    res.render('organisation/orgRegistration')
+}
+
+module.exports.renderUserRegister = (req,res)=>{
+    res.render('users/enduser/userRegistration')
+}
+
 module.exports.register = async(req,res)=>{
     try{
         const {username, email, password} = req.body;

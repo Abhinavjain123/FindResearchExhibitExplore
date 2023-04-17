@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <div class="row">
-    <h1 class="text-center">Add Campground</h1>
+    <h1 class="text-center">Add Paper</h1>
     <div class="col-md-6 offset-md-3">
         <form action="/campgrounds" method="post" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
@@ -14,39 +14,15 @@
                     Name Required
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" id="location" placeholder="Enter location"
-                    name="campground[location]" required>
-                <div class="valid-feedback">
-                    Looks Good!!
-                </div>
-                <div class="invalid-feedback">
-                    Location Required
-                </div>
-            </div>
+
             <div class="mb-3">
                 <label for="image" class="form-label">Add images</label>
                 <input class="form-control" type="file" id="image" name="image" multiple>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="price">Price</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="price-label">Rs.</span>
-                    <input type="text" class="form-control" id="price" placeholder="00" aria-label="price"
-                        aria-describedby="price-label" name="campground[price]" required>
-                </div>
-                <div class="valid-feedback">
-                    Looks Good!!
-                </div>
-                <div class="invalid-feedback">
-                    Price Required
-                </div>
-            </div>
-            <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
                 <textarea class="form-control" type="text" id="description" placeholder="Enter description"
-                    name="campground[description]" required></textarea>
+                    name="campground[description]" style="height: 160px;" required></textarea>
                 <div class="valid-feedback">
                     Looks Good!!
                 </div>
@@ -55,9 +31,9 @@
                 </div>
             </div>
             <div class="mb-3">
-                <button class="btn btn-success">Add Campground</button>
+                <button class="btn btn-success">Add Paper</button>
             </div>
         </form>
-        <a href="/campgrounds">Cancel</a>
+        <a href="/papers">Cancel</a>
     </div>
 </div>

@@ -1,0 +1,33 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+    <h1>All Papers</h1>
+
+    <% for( let paper of papers){ %>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <% if (paper.images.length) { %>
+                        <img src="<%= paper.images[0].url %>" alt="" class="img-fluid">
+                        <% }else { %>
+                            <img src="https://res.cloudinary.com/dgdbxbo79/image/upload/v1653906272/YelpCamp/qoey3qcdlwiadv449k9x.jpg"
+                                alt="" class="img-fluid">
+                            <% } %>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= paper.title %></h5>
+                        <p class="card-text"><%= paper.description %></p>
+                        <p class="card-text"><small class="text-muted"><%= paper.location %></small></p>
+                        <a href="/papers/<%= paper._id %>" class="btn btn-primary">View <%=
+                                paper.title %></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+<script>
+    const papers = { features: <%- JSON.stringify(papers) %>};
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>

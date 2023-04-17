@@ -1,12 +1,12 @@
-const Campground = require('../models/campground');
+const Campground = require('../models/paper');
 
 module.exports.index = async (req,res)=>{
-    const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds});
+    const papers = await Campground.find({});
+    res.render('papers/index', { papers});
 }
 
 module.exports.renderNewForm = (req,res)=>{
-    res.render('campgrounds/new')
+    res.render('papers/new')
 }
 
 module.exports.createCampground = async(req,res)=>{
@@ -15,17 +15,12 @@ module.exports.createCampground = async(req,res)=>{
     campground.author = req.user._id;
     await campground.save();
     req.flash('success', 'Successfully made a new campground');
-    res.redirect(`/campgrounds/${campground._id}`);
+    res.redirect(`/papers/${campground._id}`);
 }
 
 module.exports.showCampground = async (req,res)=>{
     const { id } = req.params;
-    const campground = await Campground.findById(id).populate({
-        path: 'reviews',
-        populate: {
-            path: 'author'
-        }
-        }).populate('author');
+    const campground = await Campground.findById(id);
     if(!campground){
         req.flash('error', 'Campground does not exist!!')
         return res.redirect('/campgrounds');

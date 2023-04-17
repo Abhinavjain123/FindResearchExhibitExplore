@@ -13,7 +13,6 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users')
 const campgroundRoutes = require('./routes/campground');
-const reviewRoutes = require('./routes/review');
 
 const MongoStore = require('connect-mongo');
 const app = express();
@@ -87,8 +86,7 @@ app.use((req,res,next)=>{
 })
 
 app.use('/', userRoutes);
-app.use('/campgrounds' , campgroundRoutes)
-app.use('/campgrounds/:id/reviews', reviewRoutes);
+app.use('/papers' , campgroundRoutes)
 
 app.get('/', (req,res)=>{
     res.render('home')

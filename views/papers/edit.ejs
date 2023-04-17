@@ -1,21 +1,13 @@
 <% layout('layouts/boilerplate') %> 
 
 <div class="row">
-    <h1 class="text-center">Edit Campground</h1>
+    <h1 class="text-center">Edit Paper</h1>
     <div class="col-lg-6 offset-lg-3">
-        <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+        <form action="/paper/<%= paper._id %>?_method=PUT" method="post" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" placeholder="Enter Name"
-                    name="campground[title]" value="<%= campground.title %>" required>
-                <div class="valid-feedback">
-                    Looks Good!!
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" id="location" placeholder="Enter location"
-                    name="campground[location]" value="<%= campground.location %> " required>
+                    name="paper[title]" value="<%= paper.title %>" required>
                 <div class="valid-feedback">
                     Looks Good!!
                 </div>
@@ -28,26 +20,15 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="price">Price</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="price-label">Rs.</span>
-                    <input type="text" class="form-control" id="price" placeholder="00" aria-label="price"
-                        aria-describedby="price-label" name="campground[price]" value="<%=campground.price %>" required>
-                </div>
-                <div class="valid-feedback">
-                    Looks Good!!
-                </div>
-            </div>
-            <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
                 <textarea class="form-control" type="text" id="description" placeholder="Enter description"
-                    name="campground[description]" required><%= campground.description %></textarea>
+                    name="paper[description]" style="height: 160px;" required><%= paper.description %></textarea>
                 <div class="valid-feedback">
                     Looks Good!!
                 </div>
             </div>
             <div class="mb-3">
-                <% campground.images.forEach(function(img, i){ %>
+                <% paper.images.forEach(function(img, i){ %>
                     <div >
                         <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
                         <div class="form-check">
@@ -58,9 +39,9 @@
                 <% }) %> 
             </div>
             <div class="mb-3">
-                <button class="btn btn-info text-white">Update Campground</button>
+                <button class="btn btn-info text-white">Update Paper</button>
             </div>
         </form>
-        <a href="/campgrounds/<%= campground._id %>">Back to Campground</a>
+        <a href="/papers/<%= paper._id %>">Back to All Papers</a>
     </div>
 </div>
