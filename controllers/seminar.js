@@ -26,11 +26,3 @@ module.exports.showSeminar = async (req,res)=>{
     }
     res.render('seminar/show', { seminar});
 }
-
-// module.exports.deleteSuggestion = async(req, res)=>{
-//     const {id, suggestionId} = req.params;
-//     await Paper.findByIdAndUpdate(id, {$pull: {suggestions:suggestionId}});
-//     await Suggestion.findByIdAndDelete(suggestionId);
-//     req.flash('success', 'Successfully deleted suggestion');
-//     res.redirect(`/papers/${id}`)
-// }

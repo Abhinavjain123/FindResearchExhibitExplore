@@ -9,14 +9,12 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users')
 const paperRoutes = require('./routes/paper');
 const seminarRoutes = require('./routes/seminar');
 const webinarRoutes = require('./routes/webinar');
 const suggestionRoutes = require('./routes/suggestion');
-const Paper = require('./models/paper');
 
 const MongoStore = require('connect-mongo');
 const app = express();
@@ -80,7 +78,6 @@ const scriptSrcUrls = [
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
     "https://cdn.jsdelivr.net/",
-    "https://res.cloudinary.com/dv5vm4sqh/"
 ];
 const styleSrcUrls = [
     "https://kit-free.fontawesome.com/",
@@ -88,41 +85,8 @@ const styleSrcUrls = [
     "https://fonts.googleapis.com/",
     "https://use.fontawesome.com/",
     "https://cdn.jsdelivr.net/",
-    "https://res.cloudinary.com/dgdbxbo79/"
 ];
-const connectSrcUrls = [
-    "https://res.cloudinary.com/dgdbxbo79/"
-];
-const fontSrcUrls = [ "https://res.cloudinary.com/dgdbxbo79/" ];
  
-app.use(
-    helmet({
-        contentSecurityPolicy: {
-            directives : {
-                defaultSrc : [],
-                connectSrc : [ "'self'", ...connectSrcUrls ],
-                scriptSrc  : [ "'unsafe-inline'", "'self'", ...scriptSrcUrls ],
-                styleSrc   : [ "'self'", "'unsafe-inline'", ...styleSrcUrls ],
-                workerSrc  : [ "'self'", "blob:" ],
-                objectSrc  : [],
-                imgSrc     : [
-                    "'self'",
-                    "blob:",
-                    "data:",
-                    "https://res.cloudinary.com/dgdbxbo79/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
-                    "https://images.unsplash.com/"
-                ],
-                fontSrc    : [ "'self'", ...fontSrcUrls ],
-                mediaSrc   : [ "https://res.cloudinary.com/dgdbxbo79/" ],
-                childSrc   : [ "blob:" ]
-            }
-        },
-        crossOriginEmbedderPolicy: false,
-        crossOriginOpenerPolicy: false,
-        crossOriginResourcePolicy: false
-    })
-);
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -147,15 +111,15 @@ app.get('/', (req,res)=>{
     res.render('home')
 })
 
-// app.all('*', (req,res,next)=>{
-//     next(new ExpressError('Page Not Found', 404))
-// })
+app.all('*', (req,res,next)=>{
+    next(new ExpressError('Page Not Found', 404))
+})
 
-// app.use((err,req,res,next)=>{
-//     const { statusCode = 500} = err;
-//     if(!err.message) err.message = 'Something went wrong!!';
-//     res.status(statusCode).render('error', {err});
-// })
+app.use((err,req,res,next)=>{
+    const { statusCode = 500} = err;
+    if(!err.message) err.message = 'Something went wrong!!';
+    res.status(statusCode).render('error', {err});
+})
 
 const port = process.env.PORT || 3000;
 app.listen(3000, ()=>{
