@@ -6,7 +6,7 @@ const { isLoggedIn, validateSeminar} = require('../middleware')
 
 router.route('/')
     .get(catchAsyns(seminar.index))
-    .post(isLoggedIn, validateSeminar, catchAsyns(seminar.createSeminar))
+    .post(isLoggedIn, catchAsyns(seminar.createSeminar))
     
 router.get('/new', seminar.renderNewSeminar)
 

@@ -14,8 +14,7 @@ module.exports.createWebinar = async (req,res)=>{
     webinar.author = req.user._id;
     await webinar.save();
     req.flash('success', 'Successfully added a new webinar');
-    res.send(webinar)
-    // res.redirect(`/webinars`);
+    res.redirect(`/webinars`);
 }
 
 module.exports.showWebinar = async (req,res)=>{
@@ -25,6 +24,5 @@ module.exports.showWebinar = async (req,res)=>{
         req.flash('error', 'Webinar does not exist!!')
         return res.redirect('/webinar');
     }
-    res.send(webinar.date)
-    // res.render('webinar/show', { webinar});
+    res.render('webinar/show', { webinar});
 }

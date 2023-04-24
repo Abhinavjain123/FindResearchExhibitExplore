@@ -13,8 +13,9 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="file" class="form-label">Add more images</label>
-                <input class="form-control" type="file" id="file" name="file" multiple>
+                <label class="form-label" for="link">Change Link</label>
+                <textarea class="form-control" type="text" id="link" placeholder="Enter Link"
+                    name="paper[link]" style="height: 160px;" required><%= paper.link %></textarea>
                 <div class="valid-feedback">
                     Looks Good!!
                 </div>
@@ -26,17 +27,6 @@
                 <div class="valid-feedback">
                     Looks Good!!
                 </div>
-            </div>
-            <div class="mb-3">
-                <% paper.images.forEach(function(img, i){ %>
-                    <div >
-                        <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="deleteImages[]" id="image-<%= i %>" value="<%= img.filename %>">
-                            <label class="form-check-label" for="image-<%= i %>">Delete Image</label>
-                        </div>
-                    </div>
-                <% }) %> 
             </div>
             <div class="mb-3">
                 <button class="btn btn-info text-white">Update Paper</button>

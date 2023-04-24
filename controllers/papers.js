@@ -10,13 +10,10 @@ module.exports.renderNewForm = (req,res)=>{
 }
 
 module.exports.createPaper = async(req,res)=>{
-    // res.send(req.file.filename )
     const paper = new Paper(req.body.paper);
-    paper.link = req.file.filename
     paper.author = req.user._id;
     await paper.save();
     req.flash('success', 'Successfully added a new paper');
-    // res.send(paper);
     res.redirect(`/papers/${paper._id}`);
 }
 
@@ -48,16 +45,7 @@ module.exports.renderEditForm = async (req,res)=>{
 module.exports.updatePaper = async(req,res)=>{
     const { id } = req.params;
     const paper = await Paper.findByIdAndUpdate(id,{...req.body.paper})
-    const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
-    paper.images.push(...imgs);
     await paper.save();
-    if(req.body.deleteImages){
-        for (let filename of req.body.deleteImages){
-            
-        }
-        await paper.updateOne({ $pull: { images: { filename : { $in : req.body.deleteImages} } } } );
-    }
-
     req.flash('success', 'Successfully updated paper');
     res.redirect(`/papers/${id}`);
 }

@@ -3,26 +3,24 @@
 
 <div class="row">
     <div class="col-8 offset-2">
-        <% if (data.file) { %>
-            
-            <object data="/upload/<%= data.file.filename %>" type="application/pdf" width="100%" height="500px">
-                <p>Unable to display PDF file. <a href="/upload/<%= data.file.filename %>">Download</a> instead.</p>
-            </object> 
-        <% } %>
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">
-                    <%= data.paper.title %>
+                    <%= paper.title %>
                 </h5>
                 <p class="card-text">
-                    <%= data.paper.description %>
+                    <%= paper.description %>
+                </p>
+                <p class="card-text">
+                    <a href="<%= paper.link %> ">View Paper</a>
                 </p>
             </div>
-            <% if (currentUser && (data.paper.author.equals(currentUser._id))) { %>
+
+            <% if (currentUser && (paper.author.equals(currentUser._id))) { %>
                 <div class="card-body">
                     <a class="card-link btn btn-info text-white"
-                        href="/papers/<%= data.paper._id %>/edit">Edit</a>
-                    <form class="d-inline" action="/papers/<%= data.paper._id %>?_method=DELETE" method="post">
+                        href="/papers/<%= paper._id %>/edit">Edit</a>
+                    <form class="d-inline" action="/papers/<%= paper._id %>?_method=DELETE" method="post">
                         <button class="btn btn-danger">Delete</button>
                     </form>
                 </div>
@@ -35,7 +33,7 @@
     <% if (currentUser) { %>
         <h2>Leave a Suggestion</h2>
             <div class="col-6">
-                <form action="/papers/<%= data.paper._id %>/suggestion" class="mb-3 validated-form" novalidate
+                <form action="/papers/<%= paper._id %>/suggestion" class="mb-3 validated-form" novalidate
                     method="post">
                     <div class="mb-3">
                         <label class="form-label" for="body">Suggestion</label>
@@ -53,7 +51,7 @@
             </div>
     <% } %>
     <div class="col-6">
-        <% for(let suggestion of data.paper.suggestions) {%>
+        <% for(let suggestion of paper.suggestions) {%>
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -75,5 +73,5 @@
 </div>
 
 <script>
-    const paper = <%- JSON.stringify(data.paper) %>;
+    const paper = <%- JSON.stringify(paper) %>;
 </script>

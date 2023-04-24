@@ -2,7 +2,7 @@
 <div class="row">
     <h1 class="text-center">Add Paper</h1>
     <div class="col-md-6 offset-md-3">
-        <form action="/papers" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+        <form action="/papers" method="post">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" placeholder="Enter Name"
@@ -17,7 +17,7 @@
 
             <div class="mb-3">
                 <label for="file" class="form-label">Upload Paper</label>
-                <input class="form-control" type="file" id="file" name="file">
+                <input class="form-control" type="text" id="file" placeholder="Enter Paper URL" name="paper[link]">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
