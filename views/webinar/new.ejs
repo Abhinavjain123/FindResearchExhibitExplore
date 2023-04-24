@@ -1,0 +1,58 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+    <h1 class="text-center">Add Webinar</h1>
+    <div class="col-md-6 offset-md-3">
+        <form action="/webinars" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" placeholder="Enter Name"
+                    name="webinar[title]" required>
+                <div class="valid-feedback">
+                    Looks Good!!
+                </div>
+                <div class="invalid-feedback">
+                    Name Required
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="date">Date</label>
+                    <input class="form-control" type="date" id="date" placeholder="Enter Date"
+                        name="webinar[date]" required>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="time">Time</label>
+                    <input class="form-control" type="time" id="time" placeholder="Enter time" name="webinar[time]"
+                        required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="link">Link</label>
+                <input class="form-control" type="link" id="link" placeholder="Enter Webinar Link"
+                    name="webinar[link]" required>
+                <div class="valid-feedback">
+                    Looks Good!!
+                </div>
+                <div class="invalid-feedback">
+                    Link Required
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" placeholder="Enter description"
+                    name="webinar[description]" style="height: 160px;" required></textarea>
+                <div class="valid-feedback">
+                    Looks Good!!
+                </div>
+                <div class="invalid-feedback">
+                    Give Description
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add Webinar</button>
+            </div>
+        </form>
+        <a href="/webinars">Cancel</a>
+    </div>
+</div>

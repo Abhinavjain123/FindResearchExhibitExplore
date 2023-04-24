@@ -1,5 +1,4 @@
 const Paper = require('../models/paper');
-const {cloudinary} = require('../cloudinary');
 
 module.exports.index = async (req,res)=>{
     const papers = await Paper.find({});
@@ -11,17 +10,24 @@ module.exports.renderNewForm = (req,res)=>{
 }
 
 module.exports.createPaper = async(req,res)=>{
+    // res.send(req.file.filename )
     const paper = new Paper(req.body.paper);
-    paper.images = req.files.map(f => ({url: f.path, filename: f.filename}))
+    paper.link = req.file.filename
     paper.author = req.user._id;
     await paper.save();
     req.flash('success', 'Successfully added a new paper');
+    // res.send(paper);
     res.redirect(`/papers/${paper._id}`);
 }
 
 module.exports.showPaper = async (req,res)=>{
     const { id } = req.params;
-    const paper = await Paper.findById(id);
+    const paper = await Paper.findById(id).populate({
+        path: 'suggestions',
+        populate: {
+            path: 'author'
+        }
+        }).populate('author');
     if(!paper){
         req.flash('error', 'Paper does not exist!!')
         return res.redirect('/papers');
@@ -47,7 +53,7 @@ module.exports.updatePaper = async(req,res)=>{
     await paper.save();
     if(req.body.deleteImages){
         for (let filename of req.body.deleteImages){
-            await cloudinary.uploader.destroy(filename)
+            
         }
         await paper.updateOne({ $pull: { images: { filename : { $in : req.body.deleteImages} } } } );
     }

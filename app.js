@@ -13,21 +13,30 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users')
 const paperRoutes = require('./routes/paper');
+const seminarRoutes = require('./routes/seminar');
+const webinarRoutes = require('./routes/webinar');
+const suggestionRoutes = require('./routes/suggestion');
+const Grid = require('gridfs-stream')
+const Paper = require('./models/paper');
 
 const MongoStore = require('connect-mongo');
 const app = express();
 
 const dbUrl = 'mongodb://localhost:27017/free';
+mongoose.set('strictQuery', false);
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once("open", ()=>{
+var conn = mongoose.connection;
+let gfs;
+conn.on('error', console.error.bind(console, 'connection error:'));
+conn.once('open', ()=>{
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('upload')
     console.log("Database Connected");
-});
+})
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
@@ -134,6 +143,45 @@ app.use((req,res,next)=>{
 
 app.use('/', userRoutes);
 app.use('/papers' , paperRoutes)
+app.use('/seminars' , seminarRoutes)
+app.use('/webinars' , webinarRoutes)
+app.use('/papers/:id/suggestion', suggestionRoutes);
+
+app.get('/papers/:id', async(req,res)=>{
+    const { id } = req.params;
+    const paper = await Paper.findById(id).populate({
+        path: 'suggestions',
+        populate: {
+            path: 'author'
+        }
+        }).populate('author');
+    if(!paper){
+        req.flash('error', 'Paper does not exist!!')
+        return res.redirect('/papers');
+    }
+    gfs.files.findOne({filename: paper.link}, (err,file) =>{
+        if(!file){
+            return new ExpressError("No file",404);
+        }
+
+        const data = {paper, file}
+        res.render('papers/show', { data});
+        // res.send(file)
+    })
+})
+
+app.get('/upload/:id', (req,res)=>{
+    const { id } = req.params;
+    gfs.files.findOne({filename: id}, (err,file) =>{
+        if(!file){
+            return new ExpressError("No file",404);
+        }
+
+        var readstream = gfs.createReadStream(id);
+        // readstream.pipe(res);
+        res.send(file)
+    })
+})
 
 app.get('/', (req,res)=>{
     res.render('home')

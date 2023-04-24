@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+<div class="container">
+    <h1>All Webinars</h1>
+
+    <% for( let webinar of webinars){ %>
+        <div class="card mb-3">
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= webinar.title %></h5>
+                        <p class="card-text"><small class="text-muted"><%= webinar.link %></small></p>
+                        <p class="card-text"><%= webinar.description %></p>
+                        <a href="/webinars/<%= webinar._id %>" class="btn btn-primary">View <%=
+                                webinar.title %></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+<script>
+    const webinars = { features: <%- JSON.stringify(webinars) %>};
+</script>

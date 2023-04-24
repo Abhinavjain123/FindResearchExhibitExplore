@@ -1,0 +1,68 @@
+<% layout('layouts/boilerplate') %>
+
+    <section style="background-color: rgb(253, 253, 253);">
+        <div class="conatiner mb-3">
+            <div class="row align-items-center">
+                <div class="col-7 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <p class="text-center">
+                                    <%= seminar.title %>
+                                </p>
+                            </h3>
+                            <p class="card-text">
+                                <%= seminar.description %>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h5 class="mb-0">Venue</h5>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0">
+                                        <%= seminar.location %>
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h5 class="mb-0">Date</h5>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0">
+                                        <%= seminar.date.toString().substring(0,15) %> 
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h5 class="mb-0">Time</h5>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0">
+                                        <%= seminar.time %> 
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h5 class="mb-0">Speaker</h5>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0">
+                                        <%= seminar.speaker %> 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

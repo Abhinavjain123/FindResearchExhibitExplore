@@ -1,0 +1,69 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+    <h1 class="text-center">Add Seminar</h1>
+    <div class="col-md-6 offset-md-3">
+        <form action="/seminars" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" placeholder="Enter Name"
+                    name="seminar[title]" required>
+                <div class="valid-feedback">
+                    Looks Good!!
+                </div>
+                <div class="invalid-feedback">
+                    Name Required
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" placeholder="Enter location"
+                    name="seminar[location]" required>
+                <div class="valid-feedback">
+                    Looks Good!!
+                </div>
+                <div class="invalid-feedback">
+                    Location Required
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="date">Date</label>
+                    <input class="form-control" type="date" id="date" placeholder="Enter Date"
+                        name="seminar[date]" required>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="time">Time</label>
+                    <input class="form-control" type="time" id="time" placeholder="Enter time" name="seminar[time]"
+                        required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="speaker">Speaker</label>
+                <input class="form-control" type="text" id="speaker" placeholder="Enter Speaker Name"
+                    name="seminar[speaker]" required>
+                <div class="valid-feedback">
+                    Looks Good!!
+                </div>
+                <div class="invalid-feedback">
+                    Speaker Required
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" placeholder="Enter description"
+                    name="seminar[description]" style="height: 90px;" required></textarea>
+                <div class="valid-feedback">
+                    Looks Good!!
+                </div>
+                <div class="invalid-feedback">
+                    Give Description
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add Seminar</button>
+            </div>
+        </form>
+        <a href="/seminars">Cancel</a>
+    </div>
+</div>
